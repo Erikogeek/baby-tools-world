@@ -1,6 +1,5 @@
 from django.contrib import admin
-
-from .models import Category, Comment, Product
+from .models import Category, Comment, Product, Tag
 
 
 @admin.register(Category)
@@ -9,10 +8,19 @@ class CategoryAdmin(admin.ModelAdmin):
     prepopulated_fields = {"slug": ("name",)}
 
 
+#  Registration my Product-tag
+@admin.register(Tag)
+class TagAdmin(admin.ModelAdmin):
+    list_display = ("name",)
+
+
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
     list_display = ("name", "category", "price", "average_rating", "rating_count", "created_at")
     list_select_related = ("category",)
+
+    #  here is added my filter
+    list_filter = ("category", "tags")
 
 
 @admin.register(Comment)

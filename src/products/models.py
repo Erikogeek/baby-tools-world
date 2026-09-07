@@ -5,7 +5,7 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 
 
-# Create your models here.
+#  Create your models here.
 class Category(models.Model):
     name = models.CharField(max_length=50, unique=True, null=False, blank=False)
     description = models.TextField(max_length=200, null=True, blank=True)
@@ -21,19 +21,18 @@ class Category(models.Model):
         ordering = ["name"]
         verbose_name_plural = "Categories"
 
-# my model named tags
-class Tag(models.Model):
-    name= models.CharField(max_length=100)
 
+#  my model named tags
+class Tag(models.Model):
+    name = models.CharField(max_length=200, unique=True, null=False, blank=False)
+    description = models.TextField(max_length=200, null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return self.name
 
-
 # End my models Tags
-
 
 
 class Product(models.Model):
@@ -43,13 +42,10 @@ class Product(models.Model):
     image = models.ImageField(upload_to="imgs/products/", null=True, blank=True)
     name = models.CharField(max_length=80, blank=False, null=False)
     price = models.DecimalField(max_digits=6, decimal_places=2, validators=[MinValueValidator(Decimal("0.00"))])
-
-    tags = models.ManyToManyField(Tag, blank=True) # Mein erstellter Tag.
-
-
+#  Mein erstellter Tag in einer Zeile.
+    tags = models.ManyToManyField(Tag, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-
 
     # NEW helper properties
     @property

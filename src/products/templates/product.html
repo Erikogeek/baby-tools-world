@@ -39,8 +39,26 @@
           {% endif %}
         {% endwith %}
 
+
+ <!-- Here starts my change-->
+
+        <!-- (3) Product Tags -->
+        <div class="mb-3">
+          <h5>Product-Tags</h5>
+
+          {% for tag in product.tags.all %}
+            <span class="badge bg-secondary me-1">{{ tag.name }}</span>
+          {% empty %}
+            <span class="text-muted">no tags available</span>
+          {% endfor %}
+        </div>
         <div class="btn btn-primary btn-center mt-auto">Buy now</div>
+
+<!-- Here endss my change-->
+
+
       </div>
+      
 
       <div class="col-auto d-none d-lg-block">
         {% if product.image %}

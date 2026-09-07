@@ -1,6 +1,7 @@
 from django.contrib import messages
 from django.db.models import Avg, Count
 from django.shortcuts import get_object_or_404, redirect, render
+# from django.http import HttpRequest, HttpResponse
 
 from .forms import CommentForm
 from .models import Category, Comment, Product
@@ -13,7 +14,8 @@ def product_list(request, category_slug=None):
     )
     if category_slug:
         products = products.filter(category__slug=category_slug)
-    return render(request, "products.html", {"categories": categories, "products": products})
+
+        return render(request, "products.html", {"categories": categories, "products": products})
 
 
 def product_detail(request, category_slug, pk):
@@ -65,7 +67,8 @@ def product_detail(request, category_slug, pk):
             existing = product.comments.filter(user=request.user).first()
             if existing:
                 initial = {"rating": existing.rating, "text": existing.text}
-        form = CommentForm(initial=initial)
+
+        form = CommentForm(initial=initial)  # initial was CommentForm(initial=initial)
 
     return render(
         request,
