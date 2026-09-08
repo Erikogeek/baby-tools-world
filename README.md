@@ -247,26 +247,31 @@ To implement it you can use e.g. flake8. For more information show :
 - PEP 8 style guide for Python `https://peps.python.org/pep-0008/  `
 - Flake documentation: `https://flake8.pycqa.org/en/latest/ `
 
-* Installation Flake8
+### Installation Flake8
 
 Note that you need to install it for using. Open your terminal.
 
-``` pip install flake8
+```bash
+pip install flake8
 ```
+
+
 to show the installed version using:
 
-``` flake8 --version
+```bash
+flake8 --version
 ```
 
-* Check with flake8
+### Check with flake8
 To see where are errors , using:
 
-``` flake8 src
+```bash
+flake8 src
 ```
 This will show which file does not repect the recommandations PEP 8.
 To simplify the errors you can check it in an unique file for example product.html.
-
-```  flake8 src/products/product.html
+```bash
+flake8 src/products/product.html
 ```
 In your terminal your can show the number of line and the description of violation and correct it.
 #### rapid commands by executing
@@ -274,7 +279,9 @@ This command are specially using in this Project
 All file your django application are found in the src. Changing directory in your project folder.
 first change is in product/models.py. After changing execute the follow commands:
 
-```python src/manage.py makemigrations
+```bash
+python src/manage.py makemigrations
 ```
-``` python src/manage.py migrate
+```bash
+python src/manage.py migrate
 ```
