@@ -1,13 +1,21 @@
 from django.contrib import messages
 from django.db.models import Avg, Count
 from django.shortcuts import get_object_or_404, redirect, render
-# from django.http import HttpRequest, HttpResponse
+from django.http import HttpRequest, HttpResponse
 
 from .forms import CommentForm
 from .models import Category, Comment, Product
 
 
-def product_list(request, category_slug=None):
+def product_list(request: HttpRequest, category_slug: str | None = None,) -> HttpResponse:
+    """
+    Display a list of products.
+    Args:
+        request: The Http request.
+        category_slug: Optional slug used to filter products.
+    Returns:
+        The rendered product list page.
+    """
     categories = Category.objects.all()
     products = Product.objects.select_related("category").annotate(
         avg_rating=Avg("comments__rating"), total_ratings=Count("comments")
@@ -15,10 +23,19 @@ def product_list(request, category_slug=None):
     if category_slug:
         products = products.filter(category__slug=category_slug)
 
-        return render(request, "products.html", {"categories": categories, "products": products})
+    return render(request, "products.html", {"categories": categories, "products": products})
 
 
-def product_detail(request, category_slug, pk):
+def product_detail(request: HttpRequest, category_slug: str, pk: int) -> HttpResponse:
+    """
+    Display the details of product.
+    Args:
+        request: The Http request.
+        Category_slug: The slug of the product category.
+        pk: The primary key of the product.
+    Returns:
+        the rendered product detail page.
+    """
     product = get_object_or_404(
         Product.objects.select_related("category").annotate(
             avg_rating=Avg("comments__rating"), total_ratings=Count("comments")
@@ -68,7 +85,7 @@ def product_detail(request, category_slug, pk):
             if existing:
                 initial = {"rating": existing.rating, "text": existing.text}
 
-        form = CommentForm(initial=initial)  # initial was CommentForm(initial=initial)
+        form = CommentForm()  # initial was CommentForm(initial=initial)
 
     return render(
         request,
