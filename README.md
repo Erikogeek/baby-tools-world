@@ -6,67 +6,89 @@ The project was developed for educational purposes only and therefore has no cla
 > [!NOTE]
 > This project assumes you already know the python programming language
 
-## Prerequisites
+## Table of contents
+
+* [Baby Tools World](#baby-tools-world)
+  * [Prerequisites](#prerequisites)
+  * [Quickstart](#quickstart)
+  * [Project structure](#project-structure)
+  * [Apps Overview](#apps-overview)
+  * [Usage](#usage)
+    * [Configuration](#configuration)
+    * [Running the linting tools](#running-the-linting-tools)
+    * [When to run this](#when-to-run-this)
+    * [Testing](#testing)
+    * [Running tests](#running-tests)
+    * [Running with a WSGI Server](#running-with-a-wsgi-server)
+    * [Seeding the application with data](#seeding-the-application-with-data)
+  * [Containerization](#containerization)
+    * [Build an image](#build-an-image)
+    * [Run a container](#run-a-container)
+    * [Commands in the Docker container](#commands-in-the-docker-container)
+    * [rapid commands by executing](#rapid-commands-by-executing)
+* [Code-styling PEP8](#Code-styling-PEP8)
+
+### Prerequisites
 
 In order to seamlessly interact with the repository and the software it contains you need to following tools preinstalled:
 
-- Python Interpreter
-- OCI-Compliant Container Engine (e.g. podman, docker, etc.)
-- Editor/IDE of your choice (VSC, PyCharm, etc.)
+* Python Interpreter
+* OCI-Compliant Container Engine (e.g. podman, docker, etc.)
+* Editor/IDE of your choice (VSC, PyCharm, etc.)
 
-## Quickstart
+### Quickstart
 
 In order to quickly get started with the project follow these steps:
 
 1. clone the repository
-1. nagivate to the repository
-1. (optional) create a virtual environment with `python -m venv my-venv`
-    1. activate the virtual environment:
-        - on Windows run: `my-venv/Scripts/activate`
-        - on MacOS/Linux run: `source my-venv/bin/activate`
-1. install the project dependencies with `pip install -r requirements.txt`
-1. configure required application environment variables
-    - `cp example.env .env`
-1. go to the `src` directory via `cd src`
-1. prepare the database (create and apply migrations)
-    1. `python manage.py makemigrations`
-    1. `python manage.py migrate`
-1. start the application with `python manage.py runserver`
-1. verify the application is running by visiting `localhost:8000`
-1. (optional) create a superuser by running: `python manage.py createsuperuser`
+2. nagivate to the repository
+3. (optional) create a virtual environment with `python -m venv my-venv`
+  using followinn command to activate the virtual environment:
+    * on Windows run: `my-venv/Scripts/activate`or ` .\env\Scripts\Activate.ps1 `
+    * on MacOS/Linux run: `source my-venv/bin/activate`
+4. install the project dependencies with `pip install -r requirements.txt`
+5. configure required application environment variables
+  * `cp example.env .env`
+6. go to the `src` directory via `cd src`
+7. prepare the database (create and apply migrations)
+  * `python manage.py makemigrations`
+  * `python manage.py migrate`
+9. start the application with `python manage.py runserver`
+10. verify the application is running by visiting `localhost:8000`
+11. (optional) create a superuser by running: `python manage.py createsuperuser`
 
-## Project Structure
+### Project Structure
 
-- `.gitlab`: GitLab specific project files
-- `.github`: GitHub specific project files
-- `src`: application source code, containing the django project, apps, and other files
-- `requirements.txt`: the project dependencies
+* `.gitlab`: GitLab specific project files
+* `.github`: GitHub specific project files
+* `src`: application source code, containing the django project, apps, and other files
+* `requirements.txt`: the project dependencies
 
 ### Apps Overview
 
 The project is modularized into several apps:
 
-- `products`: Manages product listings and categories
-- `users`: Handles user authentication and registration.
+* `products`: Manages product listings and categories
+* `users`: Handles user authentication and registration.
 
 Each app has its own `models.py`, `views.py`, `urls.py`, and `admin.py` files to encapsulate its functionality.
 
-## Usage
+### Usage
 
 In this section you can read about the project a bit more in detail.
 
-### Configuration
+#### Configuration
 
 To configure the project, follow these steps:
 
 1. Copy the example environment file to the `src` directory: `cp example.env src/.env`.
-    - the file needs to be stored next to the manage.py file in order to function properly.
+  * the file needs to be stored next to the manage.py file in order to function properly.
     Other locations might also work but there is no guarantuee, and in last consequence you will need to update to project correspondingly.
 2. Open your `src/.env` and set the required environment variables:
-    - `ALLOWED_HOSTS`: provide a list of comma-separated values for the allowed host configuration => Defaults to `'localhost, 127.0.0.1, 0.0.0.0'`
-    - `DEBUG`: Set to `True` for development or `False` for production. Defaults to `True`
+  * `ALLOWED_HOSTS`: provide a list of comma-separated values for the allowed host configuration => Defaults to `'localhost, 127.0.0.1, 0.0.0.0'`
+  * `DEBUG`: Set to `True` for development or `False` for production. Defaults to `True`
 
-### Running the linting tools
+#### Running the linting tools
 
 > [!tip]
 > In order to run the routines below the required packages must be installed (done after running `pip install -r requirements.txt`).
@@ -90,7 +112,7 @@ In case you forgot it and somehow violated a rule, the CI workflow will fail -> 
 > [!note]
 > If a CI workflow fails, you should check the logs to find out where the workflow failed and what was the reason for this failure.
 
-### Testing
+#### Testing
 
 This project contains tests for the corresponding apps in the respective packages.
 Tests in Django can either be located in a `tests.py` file within a django-app, or you could also have a module named `tests` (essentially a folder with an `__init__.py` file).
@@ -115,11 +137,11 @@ baby-tool-world/src/products
 
 To run the tests with the `django testrunner` you can use the following command:
 
-- `python manage.py test`, you need to run this in the folder where `manage.py` lives -> `src`
+* `python manage.py test`, you need to run this in the folder where `manage.py` lives -> `src`
 
 For more information about testing, refer to the testing documentation in this repository, see [testing documentation](./docs/testing.md)
 
-### Running with a WSGI Server
+#### Running with a WSGI Server
 
 **WSGI** (Web Server Gateway Interface) is a specification that defines a standard interface between web servers and Python web applications or frameworks.
 It acts as a bridge, allowing web servers to communicate with Python applications in a consistent manner.
@@ -137,7 +159,7 @@ the application can handle HTTP requests efficiently and reliably in a scalable 
 
 For more information about WSGI and its configuration, see the [wsgi documentation](./docs/wsgi.md).
 
-### Seeding the application with data
+#### Seeding the application with data
 
 This section will guide you through the process of providing an initial seed to the application.
 
@@ -158,8 +180,19 @@ This section should give a brief overview about the containerization of the djan
 > For other tools that are compliant with the OCI spec the commands will be slightly different, but more or less the same.
 
 #### Build an image
+Before buildung the image, you need to install Docker in your machine. For Docker Destop by Windon you need als to install 
+the WSL(`Window Subsystem Linux`), that is a windown feature that lets you run a native Linux environment directly on your
+maschine without a separate virtual machine or dual boot.
+To do taht open the powershell your machine an give the command:
+```
+wsl --instal
+```
+and test if the installation was successfully :
+```
+wls --status or wsl -l -v
+````
 
-You can build the container image by running the following command in your terminal:
+And then you can build the container image by running the following command in your terminal:
 
 ```bash
 # use -t to provide a tag together with the image name
@@ -168,6 +201,14 @@ docker build -t baby-tools-world:local .
 ```
 
 #### Run a container
+
+> [!TIP]
+> If you're using Windows, you'll probably have a problem with the file extension.
+> Windows-based text editors put special characters at the end of lines to denote a line return or newline. Normally harmless,
+> some applications on a Linux server can not understand these characters and can cause the service to not respond correctly.
+>
+> See this blog `https://blog.programster.org/fixing-docker-volume-windows-line-endings-on-bash-scripts`
+> `https://docs.github.com/en/get-started/git-basics/configuring-git-to-handle-line-endings`
 
 To start a container based on the image, use the following command in your terminal:
 
@@ -179,4 +220,78 @@ In order to overwrite predefined environment configuration in the app, you can s
 
 ```bash
 docker run --rm -it -p 8000:8000 --env-file .env baby-tools-world:local
+```
+After run that command for the first time, your container will be create for ever. You can easy start or stop it with the following commans:
+```bash
+docker start baby-tools-world
+```
+and 
+
+```bash
+docker stop baby-tools-world
+```
+
+
+> [!TIP]
+> If you start your container on the VM with the -it flags, the container may shut down when you close your terminal.
+> It will also be deleted once the container stops (this is what the --rm flag does). This is fine for testing.
+> If the container needs to be permanently available, start it exclusively with the -d flag.
+> Then the container will definitely stay online as long as no errors occur.
+> Example: `docker run -d --name your-container-name -p 8000:8000 local`
+
+#### Commands in the Docker container
+
+1. open another terminal
+2. List all open containers and copy the desired CONTAINER_ID `docker ps`
+3. Opening up the bash shell to run a command inside an already running container `docker exec -t [container-id] bash`
+4. Now you can run all commands within this running container
+
+## Code-styling PEP 8
+The PEP stands for `Python Enchancement Proposal 8`. It is the official Style Guide for Python code and provides
+recommendations for writing code that is: 
+* Easy to read
+* consitent
+* Clean
+* professional
+To implement it you can use e.g. flake8. For more information show :
+- PEP 8 style guide for Python `https://peps.python.org/pep-0008/  `
+- Flake documentation: `https://flake8.pycqa.org/en/latest/ `
+
+### Installation Flake8
+
+Note that you need to install it for using. Open your terminal.
+
+```bash
+pip install flake8
+```
+
+
+to show the installed version using:
+
+```bash
+flake8 --version
+```
+
+### Check with flake8
+To see where are errors , using:
+
+```bash
+flake8 src
+```
+This will show which file does not repect the recommandations PEP 8.
+To simplify the errors you can check it in an unique file for example product.html.
+```bash
+flake8 src/products/product.html
+```
+In your terminal your can show the number of line and the description of violation and correct it.
+#### rapid commands by executing
+This command are specially using in this Project
+All file your django application are found in the src. Changing directory in your project folder.
+first change is in product/models.py. After changing execute the follow commands:
+
+```bash
+python src/manage.py makemigrations
+```
+```bash
+python src/manage.py migrate
 ```
