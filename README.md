@@ -221,6 +221,16 @@ In order to overwrite predefined environment configuration in the app, you can s
 ```bash
 docker run --rm -it -p 8000:8000 --env-file .env baby-tools-world:local
 ```
+After run that command for the first time, your container will be create for ever. You can easy start or stop it with the following commans:
+```bash
+docker start baby-tools-world
+```
+and 
+
+```bash
+docker stop baby-tools-world
+```
+
 
 > [!TIP]
 > If you start your container on the VM with the -it flags, the container may shut down when you close your terminal.
